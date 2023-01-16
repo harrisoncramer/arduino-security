@@ -1,44 +1,22 @@
 # arduino-security
 
-Reference in C++
+Code for an alarm using Arudino and TinyGo. The motion sensor will detect motion and the alarm will go off, flashing blue and red lights. The buzzer will also sound, alerting of an intruder.
 
-```c
-/*  
-    Arduino with PIR motion sensor
-    For complete project details, visit: http://RandomNerdTutorials.com/pirsensor
-    Modified by Rui Santos based on PIR sensor by Limor Fried
-*/
- 
-int led = 13;                // the pin that the LED is atteched to
-int sensor = 2;              // the pin that the sensor is atteched to
-int state = LOW;             // by default, no motion detected
-int val = 0;                 // variable to store the sensor status (value)
+![An image of the completed module](https://hjc-public.s3.amazonaws.com/arduino-security.jpeg)
 
-void setup() {
-  pinMode(led, OUTPUT);      // initalize LED as an output
-  pinMode(sensor, INPUT);    // initialize sensor as an input
-  Serial.begin(9600);        // initialize serial
-}
+## Requirements
 
-void loop(){
-  val = digitalRead(sensor);   // read sensor value
-  if (val == HIGH) {           // check if the sensor is HIGH
-    digitalWrite(led, HIGH);   // turn LED ON
-    delay(100);                // delay 100 milliseconds 
-    
-    if (state == LOW) {
-      Serial.println("Motion detected!"); 
-      state = HIGH;       // update variable state to HIGHxx
-    }
-  } 
-  else {
-      digitalWrite(led, LOW); // turn LED OFF
-      delay(200);             // delay 200 milliseconds 
-      
-      if (state == HIGH){
-        Serial.println("Motion stopped!");
-        state = LOW;       // update variable state to LOW
-    }
-  }
-}
+1. <a href="https://tinygo.org/">Tinygo</a>
+2. <a href="https://store.arduino.cc/products/arduino-uno-rev3">Arduino Uno</a>, power supply, and USB-B data-transfer cable
+3. Jumper Cables
+4. Leds (x2)
+5. 330Ω Resistor (x2)
+6. <a href="https://www.amazon.com/dp/B07KZW86YR">PIR Infrared Sensor</a>
+7. <a href="https://www.amazon.com/dp/B07VK1GJ9X">Buzzers</a>
+
+## Build and Flash Arduino
+
+```bash
+go mod tidy
+tinygo flash --target=arduino --scheduler=tasks --port=/dev/cu.usbmodem101
 ```
