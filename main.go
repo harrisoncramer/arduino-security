@@ -30,11 +30,11 @@ func (a *Alarm) Run(alarmCount int) {
 	} else {
 		a.led2.High()
 	}
-	time.Sleep(300 * time.Millisecond)
+	time.Sleep(100 * time.Millisecond)
 	a.buzzer.Low()
 	a.led1.Low()
 	a.led2.Low()
-	time.Sleep(300 * time.Millisecond)
+	time.Sleep(100 * time.Millisecond)
 }
 
 func (a *Alarm) Off() {
@@ -67,7 +67,7 @@ func main() {
 	go func() {
 		for on := range alarm.on {
 			if on {
-				for i := 0; i <= 5; i++ {
+				for i := 0; i <= 3; i++ {
 					alarm.Run(i)
 				}
 			} else {
