@@ -17,6 +17,15 @@ Code for an alarm using Arudino and TinyGo. The motion sensor will detect motion
 ## Build and Flash Arduino
 
 ```bash
-go mod tidy
-tinygo flash --target=arduino --scheduler=tasks --port=/dev/cu.usbmodem101
+$ go mod tidy
+$ tinygo flash --target=arduino --scheduler=tasks --port=/dev/cu.usbmodem101
+```
+
+## Monitoring the Logs
+
+```bash
+$ brew install arduino-cli
+$ arduino-cli core update-index
+$ arduino-cli core install arduino:avr
+$ arduino-cli monitor -p /dev/cu.usbmodem101 # Or whatever port the Arudino is attached to
 ```
