@@ -24,7 +24,7 @@ func (a *Alarm) Run(alarmCount int) {
 		return
 	}
 
-	a.buzzer.High()
+	// a.buzzer.High()
 	if alarmCount%2 == 0 {
 		a.led1.High()
 	} else {
@@ -44,6 +44,9 @@ func (a *Alarm) Off() {
 }
 
 func main() {
+
+	machine.Serial.Configure(machine.UARTConfig{})
+	machine.Serial.Write([]byte("Starting application..."))
 
 	red := machine.D13
 	blue := machine.D11
@@ -67,6 +70,7 @@ func main() {
 	go func() {
 		for on := range alarm.on {
 			if on {
+				machine.Serial.Write([]byte("Alarm!\n"))
 				for i := 0; i <= 3; i++ {
 					alarm.Run(i)
 				}
@@ -83,5 +87,6 @@ func main() {
 		} else {
 			alarm.on <- false
 		}
+		time.Sleep(1000 * time.Millisecond)
 	}
 }
